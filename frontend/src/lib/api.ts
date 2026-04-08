@@ -10,7 +10,9 @@ import {
 } from '@/types';
 import { getStoredToken } from '@/lib/auth';
 
-const BASE_URL = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:8000';
+const BASE_URL =
+  process.env.NEXT_PUBLIC_API_URL ||
+  'https://jobmatchai-66f5e384168c.herokuapp.com';
 
 const api = axios.create({
   baseURL: BASE_URL,

@@ -46,6 +46,7 @@ backend/uploads/
 *.sqlite
 *.sqlite3
 postgres_data/
+backups/*.dump
 
 # ── IDE & OS ──────────────────────────────────────────────────────────────────
 .vscode/

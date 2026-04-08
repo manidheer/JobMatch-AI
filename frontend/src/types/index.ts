@@ -130,6 +130,7 @@ export interface AnalysisResult {
   company: string | null;
   job_url: string | null;
   match_score: number;
+  match_label?: string;
   matched_skills: string[];
   missing_skills: string[];
   recommended_skills: string[];

@@ -173,12 +173,7 @@ export default function DashboardPage() {
 
       {/* ── Stats cards ───────────────────────────────────────────────── */}
       {stats && !loading && (
-        <div style={{
-          display: 'grid',
-          gridTemplateColumns: 'repeat(auto-fill, minmax(190px, 1fr))',
-          gap: '1rem',
-          marginBottom: '2rem',
-        }}>
+        <div className="dashboard-stats-grid">
           {statItems.map(({ label, value, icon: Icon, color, glow, suffix }) => (
             <div key={label} className="stat-card">
               <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: '1rem' }}>
@@ -204,14 +199,14 @@ export default function DashboardPage() {
 
       {/* ── Loading skeleton ─────────────────────────────────────────── */}
       {loading && (
-        <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fill, minmax(190px, 1fr))', gap: '1rem', marginBottom: '2rem' }}>
+        <div className="dashboard-stats-grid">
           {[1, 2, 3, 4].map((i) => (
             <div key={i} className="skeleton" style={{ height: '110px', borderRadius: '16px' }} />
           ))}
         </div>
       )}
 
-      <div style={{ display: 'grid', gridTemplateColumns: resume ? '1fr 1fr' : '1fr', gap: '1.5rem' }}>
+      <div className={resume ? 'dashboard-two-col' : ''}>
         {/* Resume status */}
         <div className="card" style={{ gridColumn: !resume ? '1 / -1' : 'auto' }}>
           <div style={{ display: 'flex', alignItems: 'center', gap: '0.75rem', marginBottom: '1rem' }}>
@@ -365,7 +360,7 @@ export default function DashboardPage() {
         <h2 style={{ fontSize: '1rem', marginBottom: '1rem', color: 'var(--text-secondary)', fontWeight: 600 }}>
           Quick Actions
         </h2>
-        <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fill, minmax(200px, 1fr))', gap: '1rem' }}>
+        <div className="dashboard-actions-grid">
           {[
             { href: '/resume', icon: '📄', label: 'Upload Resume', desc: 'PDF or DOCX', color: '#3b82f6' },
             { href: '/jobs', icon: '🔍', label: 'Search Jobs', desc: 'Find matching roles', color: '#8b5cf6' },

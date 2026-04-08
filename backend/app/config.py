@@ -1,6 +1,7 @@
 """
 App configuration — reads from environment variables.
 """
+import os
 import secrets
 from pydantic_settings import BaseSettings
 from functools import lru_cache
@@ -81,4 +82,30 @@ class Settings(BaseSettings):
 
 @lru_cache()
 def get_settings() -> Settings:
-    return Settings()
+    settings = Settings()
+
+    # Heroku provides DATABASE_URL as postgresql:// (or legacy postgres://),
+    # while SQLAlchemy async engine needs postgresql+asyncpg://.
+    if settings.DATABASE_URL.startswith("postgres://"):
+        settings.DATABASE_URL = settings.DATABASE_URL.replace(
+            "postgres://", "postgresql+asyncpg://", 1
+        )
+    elif settings.DATABASE_URL.startswith("postgresql://") and "+asyncpg" not in settings.DATABASE_URL:
+        settings.DATABASE_URL = settings.DATABASE_URL.replace(
+            "postgresql://", "postgresql+asyncpg://", 1
+        )
+
+    # Keep a synchronous URL available for any sync-only operations.
+    if not settings.SYNC_DATABASE_URL or settings.SYNC_DATABASE_URL == "postgresql://jobmatch:jobmatch@localhost:5432/jobmatch":
+        raw_db = os.getenv("DATABASE_URL", "")
+        if raw_db.startswith("postgres://"):
+            settings.SYNC_DATABASE_URL = raw_db.replace("postgres://", "postgresql://", 1)
+        elif raw_db.startswith("postgresql://"):
+            settings.SYNC_DATABASE_URL = raw_db
+
+    if settings.SYNC_DATABASE_URL.startswith("postgresql+asyncpg://"):
+        settings.SYNC_DATABASE_URL = settings.SYNC_DATABASE_URL.replace(
+            "postgresql+asyncpg://", "postgresql://", 1
+        )
+
+    return settings

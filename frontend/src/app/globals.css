@@ -553,11 +553,166 @@ textarea.input {
 .animate-fadeIn { animation: fadeIn 0.3s ease forwards; }
 .animate-pulse-glow { animation: pulse-glow 2s ease-in-out infinite; }
 
+/* ─── Mobile Navbar ───────────────────────────────────────────────────────────── */
+.navbar-links-desktop {
+  display: flex;
+}
+.navbar-right-desktop {
+  display: flex;
+}
+.navbar-mobile-right {
+  display: none;
+}
+.navbar-hamburger {
+  display: none;
+}
+.navbar-mobile-menu {
+  display: none;
+}
+.navbar-backdrop {
+  display: none;
+}
+
+.navbar-mobile-link {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  padding: 0.875rem 1rem;
+  font-size: 1rem;
+  font-weight: 500;
+  color: var(--text-secondary);
+  transition: var(--transition-fast);
+  border-left: 3px solid transparent;
+}
+.navbar-mobile-link:hover,
+.navbar-mobile-link.active {
+  background: var(--bg-elevated);
+  color: var(--text-primary);
+  border-left-color: var(--brand-500);
+}
+
+/* ─── Responsive grids ────────────────────────────────────────────────────────── */
+.dashboard-two-col {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1.5rem;
+}
+.dashboard-stats-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(190px, 1fr));
+  gap: 1rem;
+  margin-bottom: 2rem;
+}
+.dashboard-actions-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+  gap: 1rem;
+}
+
 /* ─── Responsive ──────────────────────────────────────────────────────────────── */
 @media (max-width: 768px) {
   h1 { font-size: 1.875rem; }
   h2 { font-size: 1.5rem; }
+
+  /* Sidebar */
   .sidebar { width: 100%; }
+
+  /* Content padding */
+  .content-area {
+    padding: 1rem;
+  }
+
+  /* Hero card */
+  .hero-card {
+    padding: 1.25rem;
+  }
+
+  /* Navbar: show hamburger, hide desktop links */
+  .navbar-links-desktop {
+    display: none;
+  }
+  .navbar-right-desktop {
+    display: none;
+  }
+  .navbar-mobile-right {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+  }
+  .navbar-hamburger {
+    display: flex;
+  }
+  .navbar-mobile-menu {
+    display: block;
+    background: var(--bg-surface);
+    border-top: 1px solid var(--bg-border);
+    position: absolute;
+    top: 64px;
+    left: 0;
+    right: 0;
+    z-index: 200;
+    box-shadow: var(--shadow-lg);
+  }
+  .navbar-backdrop {
+    display: block;
+    position: fixed;
+    inset: 0;
+    background: rgba(0, 0, 0, 0.5);
+    z-index: 150;
+    top: 64px;
+  }
+
+  /* Dashboard grids */
+  .dashboard-two-col {
+    grid-template-columns: 1fr;
+  }
+  .dashboard-stats-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+  .dashboard-actions-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  /* Cards */
+  .card, .card-elevated, .glass-card {
+    padding: 1rem;
+  }
+
+  /* Dropzone */
+  .dropzone {
+    padding: 2rem 1rem;
+  }
+
+  /* Buttons — make them easier to tap */
+  .btn {
+    min-height: 40px;
+  }
+}
+
+@media (max-width: 480px) {
+  h1 { font-size: 1.5rem; }
+  h2 { font-size: 1.25rem; }
+
+  .content-area {
+    padding: 0.75rem;
+  }
+
+  .dashboard-stats-grid {
+    grid-template-columns: 1fr 1fr;
+  }
+  .dashboard-actions-grid {
+    grid-template-columns: 1fr 1fr;
+  }
+
+  .hero-card {
+    padding: 1rem;
+  }
+
+  /* Stack hero content vertically */
+  .hero-card > div {
+    flex-direction: column !important;
+    align-items: flex-start !important;
+  }
 }
 
 /* ─── Gradient Text ─────────────────────────────────────────────────────────── */
